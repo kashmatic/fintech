@@ -24,7 +24,7 @@ services:
     volumes:
     - mongodata:/data/db
     ports:
-    - 27017:27017
+    - 27027:27017
     environment:
       MONGODB_USERNAME: mongoadmin
       MONGODB_PASSWORD: secret
@@ -42,7 +42,7 @@ services:
     networks:
     - fintech
     environment:
-      MONGODB_URI: mongodb://mongoadmin:secret@mongodb:27017/stocks
+      MONGODB_URI: mongodb://mongoadmin:secret@mongodb:27027/stocks
 
 
 volumes:
