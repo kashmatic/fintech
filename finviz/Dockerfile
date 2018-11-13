@@ -7,4 +7,4 @@ WORKDIR /Finance-Data-Scraper-API
 
 RUN python setup.py install
 
-ENTRYPOINT ["python", "finance_data_scraper/webserver.py"]
+# ENTRYPOINT ["python", "finance_data_scraper/webserver.py"]
