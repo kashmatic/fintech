@@ -1,0 +1,52 @@
+version: "3.6"
+
+services:
+  # nginx:
+  #   build: nginx
+  #   networks:
+  #   - fintech
+  #   ports:
+  #   - 8080:80
+  #
+  # app:
+  #   build: app
+  #   networks:
+  #   - fintech
+  #   ports:
+  #   - 5050:5000
+  #   expose:
+  #   - 5050
+  #
+  mongodb:
+    image: mongo:latest
+    networks:
+    - fintech
+    volumes:
+    - mongodata:/data/db
+    ports:
+    - 27017:27017
+    environment:
+      MONGODB_USERNAME: mongoadmin
+      MONGODB_PASSWORD: secret
+      MONGODB_DATABASE: stocks
+
+  # finviz:
+  #   build: finviz
+  #   networks:
+  #   - fintech
+  #   ports:
+  #   - 8085:8080
+
+  collectdata:
+    build: tickerdata
+    networks:
+    - fintech
+    environment:
+      MONGODB_URI: mongodb://mongoadmin:secret@mongodb:27017/stocks
+
+
+volumes:
+  mongodata:
+
+networks:
+  fintech:
