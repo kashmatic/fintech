@@ -46,19 +46,19 @@ services:
   #   ports:
   #   - 3406:3306
 
-  finviz:
-    build: finviz
-    networks:
-    - fintech
-    ports:
-    - 8085:8080
-
-  # collectiex:
-  #   build: collect_iex
+  # finviz:
+  #   build: finviz
   #   networks:
   #   - fintech
-  #   environment:
-  #     MONGODB_URI: mongodb://mongodb:27017/stocks
+  #   ports:
+  #   - 8085:8080
+
+  collectiex:
+    build: collect_iex
+    networks:
+    - fintech
+    environment:
+      MONGODB_URI: mongodb://mongodb:27017/stocks
 
   # collectfinviz:
   #   build: collect_finviz
