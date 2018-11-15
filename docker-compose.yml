@@ -19,39 +19,39 @@ services:
   #   expose:
   #   - 5050
 
-  mongodb:
-    image: mongo:latest
-    networks:
-    - fintech
-    volumes:
-    - mongodata:/data/db
-    ports:
-    - 27027:27017
-    expose:
-    - 27027
-    environment:
-      MONGODB_USERNAME: mongoadmin
-      MONGODB_PASSWORD: secret
-      MONGODB_DATABASE: stocks
-
-  database_mariadb:
-    image: mariadb
-    environment:
-      MYSQL_DATABASE: stocks
-      MYSQL_USER: mysqluser
-      MYSQL_PASSWORD: mysqlpassword
-      MYSQL_ROOT_PASSWORD: myrootpassword
-    networks:
-    - fintech
-    ports:
-    - 3406:3306
-
-  # finviz:
-  #   build: finviz
+  # mongodb:
+  #   image: mongo:latest
+  #   networks:
+  #   - fintech
+  #   volumes:
+  #   - mongodata:/data/db
+  #   ports:
+  #   - 27027:27017
+  #   expose:
+  #   - 27027
+  #   environment:
+  #     MONGODB_USERNAME: mongoadmin
+  #     MONGODB_PASSWORD: secret
+  #     MONGODB_DATABASE: stocks
+  #
+  # database_mariadb:
+  #   image: mariadb
+  #   environment:
+  #     MYSQL_DATABASE: stocks
+  #     MYSQL_USER: mysqluser
+  #     MYSQL_PASSWORD: mysqlpassword
+  #     MYSQL_ROOT_PASSWORD: myrootpassword
   #   networks:
   #   - fintech
   #   ports:
-  #   - 8085:8080
+  #   - 3406:3306
+
+  finviz:
+    build: finviz
+    networks:
+    - fintech
+    ports:
+    - 8085:8080
 
   # collectiex:
   #   build: collect_iex
