@@ -80,20 +80,20 @@ services:
   #   networks:
   #   - fintech
 
-  server:
-    build: ui_server
-    environment:
-      MARIADB_HOST: database_mariadb
-      MARIADB_USER: mysqluser
-      MARIADB_PASSWORD: mysqlpassword
-      MARIADB_DBNAME: stocks
-      MARIADB_PORT: 3306
-    ports:
-    - 5050:5000
-    expose:
-    - 5050
-    networks:
-    - fintech
+  # server:
+  #   build: ui_server
+  #   environment:
+  #     MARIADB_HOST: database_mariadb
+  #     MARIADB_USER: mysqluser
+  #     MARIADB_PASSWORD: mysqlpassword
+  #     MARIADB_DBNAME: stocks
+  #     MARIADB_PORT: 3306
+  #   ports:
+  #   - 5050:5000
+  #   expose:
+  #   - 5050
+  #   networks:
+  #   - fintech
 
 volumes:
   mongodata:
