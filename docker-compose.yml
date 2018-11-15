@@ -6,31 +6,45 @@ services:
   #   networks:
   #   - fintech
   #   ports:
-  #   - 8080:80
-  #
+  #   - 8089:80
+
   # app:
   #   build: app
   #   networks:
   #   - fintech
   #   ports:
   #   - 5050:5000
+  #   environment:
+  #     MONGODB_URI: mongodb://mongodb:27017/stocks
   #   expose:
   #   - 5050
+
+  # mongodb:
+  #   image: mongo:latest
+  #   networks:
+  #   - fintech
+  #   volumes:
+  #   - mongodata:/data/db
+  #   ports:
+  #   - 27017:27017
+  #   expose:
+  #   - 27017
+  #   environment:
+  #     MONGODB_USERNAME: mongoadmin
+  #     MONGODB_PASSWORD: secret
+  #     MONGODB_DATABASE: stocks
   #
-  mongodb:
-    image: mongo:latest
-    networks:
-    - fintech
-    volumes:
-    - mongodata:/data/db
-    ports:
-    - 27017:27017
-    expose:
-    - 27017
-    environment:
-      MONGODB_USERNAME: mongoadmin
-      MONGODB_PASSWORD: secret
-      MONGODB_DATABASE: stocks
+  # database_mariadb:
+  #   image: mariadb
+  #   environment:
+  #     MYSQL_DATABASE: stocks
+  #     MYSQL_USER: mysqluser
+  #     MYSQL_PASSWORD: mysqlpassword
+  #     MYSQL_ROOT_PASSWORD: myrootpassword
+  #   networks:
+  #   - fintech
+  #   ports:
+  #   - 3306:3306
 
   # finviz:
   #   build: finviz
@@ -39,13 +53,47 @@ services:
   #   ports:
   #   - 8085:8080
 
-  collectdata:
-    build: tickerdata
+  # collectiex:
+  #   build: collect_iex
+  #   networks:
+  #   - fintech
+  #   environment:
+  #     MONGODB_URI: mongodb://mongodb:27017/stocks
+
+  # collectfinviz:
+  #   build: collect_finviz
+  #   networks:
+  #   - fintech
+  #   environment:
+  #     MONGODB_URI: mongodb://mongodb:27017/stocks
+  #     FINVIZ_URI: http://finviz:8080/finance/finviz/statistics
+
+  # saveto_mariadb:
+  #   build: savetomariadb
+  #   environment:
+  #     MARIADB_HOST: database_mariadb
+  #     MARIADB_USER: mysqluser
+  #     MARIADB_PASSWORD: mysqlpassword
+  #     MARIADB_DBNAME: stocks
+  #     MARIADB_PORT: 3306
+  #     MONGODB_URI: mongodb://mongodb:27017/stocks
+  #   networks:
+  #   - fintech
+
+  server:
+    build: ui_server
+    environment:
+      MARIADB_HOST: database_mariadb
+      MARIADB_USER: mysqluser
+      MARIADB_PASSWORD: mysqlpassword
+      MARIADB_DBNAME: stocks
+      MARIADB_PORT: 3306
+    ports:
+    - 5050:5000
+    expose:
+    - 5050
     networks:
     - fintech
-    environment:
-      MONGODB_URI: mongodb://mongodb:27017/stocks
-
 
 volumes:
   mongodata:
