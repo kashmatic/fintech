@@ -1,0 +1,23 @@
+version: "3.6"
+
+services:
+  collectiex:
+    build: collect_iex
+    networks:
+    - fintech
+    environment:
+      MONGODB_URI: mongodb://mongodb:27017/stocks
+
+  collectfinviz:
+    build: collect_finviz
+    networks:
+    - fintech
+    environment:
+      MONGODB_URI: mongodb://mongodb:27017/stocks
+      FINVIZ_URI: http://finviz:8080/finance/finviz/statistics
+
+volumes:
+  mongodata:
+
+networks:
+  fintech:

@@ -1,0 +1,20 @@
+version: "3.6"
+
+services:
+  saveto_mariadb:
+    build: savetomariadb
+    environment:
+      MARIADB_HOST: database_mariadb
+      MARIADB_USER: mysqluser
+      MARIADB_PASSWORD: mysqlpassword
+      MARIADB_DBNAME: stocks
+      MARIADB_PORT: 3306
+      MONGODB_URI: mongodb://mongodb:27017/stocks
+    networks:
+    - fintech
+
+volumes:
+  mongodata:
+
+networks:
+  fintech:
