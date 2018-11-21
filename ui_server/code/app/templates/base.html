@@ -26,6 +26,7 @@
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
+        <li><a href="{{ url_for('index') }}" style="color: #800000; font-family: Arial Black, Gadget, sans-serif">Login</a></li>
         {% if session['username'] == 'admin' %}
         <li><a href="{{ url_for('index') }}" style="color: #800000; font-family: Arial Black, Gadget, sans-serif">Users</a></li>
         <li><a href="{{ url_for('index') }}" style="color: #800000; font-family: Arial Black, Gadget, sans-serif">Groups</a></li>

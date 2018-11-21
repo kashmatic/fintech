@@ -8,6 +8,13 @@ services:
     ports:
     - 8089:80
 
+  finviz:
+    build: server_finviz
+    networks:
+    - fintech
+    ports:
+    - 8085:8080
+
   mongodb:
     image: mongo:latest
     networks:

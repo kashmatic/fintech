@@ -10,6 +10,8 @@ import mysql.connector as MS
 
 import os
 
+app.config['MONGO_URI'] = 'mongodb://mongodb:27017/stocks'
+
 DB = MS.connect(
     host=os.environ.get('MARIADB_HOST'),
     user=os.environ.get('MARIADB_USER'),
@@ -47,25 +49,25 @@ def index():
     if form.validate():
         val = request.form.get('marketCap')
         if val:
-            alist.append("marketCap > {}".format(val))
+            alist.append(f"marketCap > {val}")
         val = request.form.get('ratioDebtMarketcap')
         if val:
-            alist.append("ratioDebtMarketcap < {}".format(val))
+            alist.append(f"ratioDebtMarketcap < {val}")
         val = request.form.get('cash')
         if val:
-            alist.append("cash > {}".format(val))
+            alist.append(f"cash > {val}")
         val = request.form.get('pe')
         if val:
-            alist.append("ratioPE < {}".format(val))
+            alist.append(f"ratioPE < {val}")
         val = request.form.get('ebitda')
         if val:
-            alist.append("ebitda > {}".format(val))
+            alist.append(f"ebitda > {val}")
         val = request.form.get('pettm')
         if val:
-            alist.append("ratioPEttm < {}".format(val))
+            alist.append(f"ratioPEttm < {val}")
         val = request.form.get('peforward')
         if val:
-            alist.append("ratioPEforward < {}".format(val))
+            alist.append(f"ratioPEforward < {val}")
         print(alist)
 
 
@@ -91,3 +93,19 @@ def ticker(symbol):
     CURSOR.execute(sql)
     result = CURSOR.fetchall()
     return render_template('ticker.html', result=result)
+
+@app.route('/login')
+def login():
+    return render_template('login.html')
+
+@app.route('/logout')
+def logout():
+    return render_template('login.html')
+
+@app.route('/register')
+def register():
+    return render_template('register.html')
+
+@app.route('/user', methods=['POST'])
+def create_user():
+    pass
